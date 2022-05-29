@@ -12,5 +12,6 @@ namespace Catalog.Repositories
         Word GetWordByEN(string word);
         IEnumerable<Word> GetWordByTopic(string topic);
         void CreateWord(Word word);
+        void UpdateWord(Word word);
     }
 }

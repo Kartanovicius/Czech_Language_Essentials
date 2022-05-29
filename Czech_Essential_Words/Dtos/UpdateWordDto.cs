@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Catalog.Dtos
 {
-    public record CreateWordDto
+    public record UpdateWordDto
     {
         [Required]
         public string CZ { get; init; }

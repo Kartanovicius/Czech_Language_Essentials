@@ -87,6 +87,12 @@ namespace Catalog.Repositories
         {
             words.Add(word);
         }
+
+        public void UpdateWord(Word word)
+        {
+            var index = words.FindIndex(existingWord => existingWord.Id == word.Id);
+            words[index] = word;
+        }
     }
 }
 

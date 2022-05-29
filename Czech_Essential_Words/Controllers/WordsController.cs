@@ -112,5 +112,32 @@ namespace Catalog.Controllers
 
 			return CreatedAtAction(nameof(GetWord), new { id = word.Id }, word.asDto());
         }
+
+		[HttpPut("{id}")]
+		public ActionResult UpdateWord(Guid id, UpdateWordDto wordDto)
+		{
+			var existingWord = repository.GetWord(id);
+
+			if (existingWord is null)
+            {
+				return NotFound();
+            }
+
+			Word updatedWord = existingWord with
+			{
+				CZ = wordDto.CZ,
+				EN = wordDto.EN,
+				ExampleSentanceCZ = wordDto.ExampleSentanceCZ,
+				ExampleSentanceEN = wordDto.ExampleSentanceEN,
+				Difficulty = wordDto.Difficulty,
+				Topic = wordDto.Topic,
+				PartOfSpeech = wordDto.PartOfSpeech,
+				Collection = wordDto.Collection
+			};
+
+			repository.UpdateWord(updatedWord);
+
+			return NoContent();
+		}
 	}
 }
