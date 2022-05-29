@@ -26,6 +26,19 @@ namespace Catalog.Controllers
 			return words;
 		}
 
+		[HttpGet("id")]
+		public ActionResult<WordDto> GetWord(Guid id)
+		{
+			var result = repository.GetWord(id);
+
+			if (result is null)
+			{
+				return NotFound();
+			}
+
+			return result.asDto();
+		}
+
 		[HttpGet("en")]
 		public ActionResult<WordDto> GetWordByEN([FromQuery]string word)
 		{
@@ -78,5 +91,26 @@ namespace Catalog.Controllers
 			var result = repository.GetRandomWord();
 			return result.asDto();
 		}
+
+		[HttpPost]
+		public ActionResult<WordDto> CreateWord(CreateWordDto wordDto)
+        {
+			Word word = new()
+			{
+				Id = Guid.NewGuid(),
+				CZ = wordDto.CZ,
+				EN = wordDto.EN,
+				ExampleSentanceCZ = wordDto.ExampleSentanceCZ,
+				ExampleSentanceEN = wordDto.ExampleSentanceEN,
+				Difficulty = wordDto.Difficulty,
+				Topic = wordDto.Topic,
+				PartOfSpeech = wordDto.PartOfSpeech,
+				Collection = wordDto.Collection
+			};
+
+			repository.CreateWord(word);
+
+			return CreatedAtAction(nameof(GetWord), new { id = word.Id }, word.asDto());
+        }
 	}
 }

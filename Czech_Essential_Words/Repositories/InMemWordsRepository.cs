@@ -50,6 +50,11 @@ namespace Catalog.Repositories
             return words;
         }
 
+        public Word GetWord(Guid id)
+        {
+            return words.Where(item => item.Id == id).SingleOrDefault();
+        }
+
         public Word GetWordByEN(string word)
         {
             return words.Where(item => item.EN == word).SingleOrDefault();
@@ -76,6 +81,11 @@ namespace Catalog.Repositories
             int wordIndex = rnd.Next(0, words.Count());
 
             return words[wordIndex];
+        }
+
+        public void CreateWord(Word word)
+        {
+            words.Add(word);
         }
     }
 }
