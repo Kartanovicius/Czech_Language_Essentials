@@ -93,6 +93,12 @@ namespace Catalog.Repositories
             var index = words.FindIndex(existingWord => existingWord.Id == word.Id);
             words[index] = word;
         }
+
+        public void DeleteWord(Guid id)
+        {
+            var index = words.FindIndex(existingWord => existingWord.Id == id);
+            words.RemoveAt(index);
+        }
     }
 }
 

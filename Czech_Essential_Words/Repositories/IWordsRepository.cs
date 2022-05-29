@@ -13,5 +13,6 @@ namespace Catalog.Repositories
         IEnumerable<Word> GetWordByTopic(string topic);
         void CreateWord(Word word);
         void UpdateWord(Word word);
+        void DeleteWord(Guid id);
     }
 }

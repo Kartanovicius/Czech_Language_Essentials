@@ -139,5 +139,20 @@ namespace Catalog.Controllers
 
 			return NoContent();
 		}
+
+		[HttpDelete("{id}")]
+		public ActionResult DeleteWord(Guid id)
+		{
+			var existingWord = repository.GetWord(id);
+
+			if (existingWord is null)
+			{
+				return NotFound();
+			}
+
+			repository.DeleteWord(id);
+
+			return NoContent();
+		}
 	}
 }
